@@ -9,6 +9,16 @@ The input number will then be calculated using **solaneA000124** function. For e
 ```
     1-2-4-7-11-16-22
 ```
+
+You can also build the docker image by running this command:
+```
+    docker build -t test-1:latest -f Dockerfile .
+```
+
+Then you can run the app via docker interactive command like this:
+```
+    docker run --rm -i test-1:latest
+``` 
 <p align="left">
     <img src="../assets/test-1_sc.png" alt="swagger">
 </p>
