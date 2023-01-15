@@ -1,4 +1,4 @@
-### [ Test-2 ] Dense Ranking Application
+## [ Test-2 ] Dense Ranking Application
 Run the application: 
 ```
     go run main.go

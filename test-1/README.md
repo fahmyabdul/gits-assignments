@@ -1,4 +1,4 @@
-### [ Test-1 ] A Solane's OEIS A000124 Application
+## [ Test-1 ] A Solane's OEIS A000124 Application
 Run the application: 
 ```
     go run main.go
