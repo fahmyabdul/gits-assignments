@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  test-3-grpc:
+    container_name: test-3-grpc
+    image: sir-avdul.ddns.net:8555/etcetera/test-3-grpc:latest
+    restart: 'always'
+    ports:
+      - '11000:11000'
+    volumes:
+      - /apps/docker-vol/test-3-grpc/tmp:/app/test-3-grpc/tmp:rw
+      # - /apps/docker-vol/test-3-grpc/.configs.local.yml:/app/test-3-grpc/.configs.yml
+    environment: 
+      APP_RUN: 'test-3-grpc'
+      # APP_LOG: '/app/test-3-grpc/log'
+      # APP_CONFIG: '/app/test-3-grpc/.configs.prod.yml'
+      # GITS_TEST3_DATABASES_SQLITE_PATH: '/test-3-grpc/database'
+      # GITS_TEST3_SERVICES_RESTAPI_PORT: '8700'
+    

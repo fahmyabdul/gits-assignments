@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: fahmy-system
+  name: test-3-grpc-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: fahmy-system
+  name: test-3-grpc
+  labels:
+    app: test-3-grpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-3-grpc
+  template:
+    metadata:
+      labels:
+        app: test-3-grpc
+    spec:
+      containers:
+      - name: test-3-grpc
+        image: sir-avdul.ddns.net:8555/etcetera/test-3-grpc:latest
+        env:
+        - name: APP_RUN
+          value: test-3-grpc
+        - name: APP_LOG
+          value: ./log
+        volumeMounts:
+        - mountPath: /app/test-3-grpc/tmp
+          name: test-3-grpc-vol-1
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+          requests:
+            memory: 512Mi
+            cpu: "0.2"
+      volumes:
+      - name: test-3-grpc-vol-1
+        persistentVolumeClaim:
+          claimName: test-3-grpc-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fahmy-system
+  name: test-3-grpc
+  labels:
+    app: test-3-grpc
+spec:
+  selector:
+    app: test-3-grpc
+  ports:
+    - protocol: TCP
+      port: 11000
+      targetPort: 11000
+      nodePort: 31900
+  type: LoadBalancer

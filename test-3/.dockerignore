@@ -6,7 +6,7 @@ test.go
 tmp/
 vendor/
 .air.dev.toml
-.config.dev.toml
+.config.dev.yml
 *.out
 *.prof
 *.test

@@ -1,3 +1,6 @@
+current_dir = $(shell pwd)
+docker_repo = sir-avdul.ddns.net:8555/etcetera/test-3-grpc:latest
+
 proto-gen-old:
 	protoc -Iinternal/proto --go_out=. --go_opt=module=github.com/fahmyabdul/gits-assignments/test-3 --go-grpc_out=paths=source_relative:internal/proto internal/proto/*.proto
 .PHONY: proto-gen-old
@@ -27,17 +30,17 @@ run-grpc-dev:
 .PHONY: run
 
 gen-mocks:
-	mockery --all -r --case snake --output internal/mocks
-.PHONY: gen-mocks
-
-gen-mocks-internal:
-	mockery --dir=./internal/usecase --all -r --case snake --output internal/mocks
+	mockery --dir=./internal/usecase --all -r --case snake --output internal/usecase/mocks
 .PHONY: gen-mocks
 
 export TEST_HOST=localhost:8500
 
 test:
-	go clean -testcache && go test ./... -v
+	go clean -testcache && go test -cover ./...
+.PHONY: test
+
+test-verbose:
+	go clean -testcache && go test -cover ./... -v
 .PHONY: test
 
 test-integration:
@@ -50,7 +53,7 @@ clean:
 .PHONY: clean
 
 docker-build:
-	docker build -t sir-avdul.ddns.net:8555/test-3-grpc:latest -f Dockerfile .
+	docker build -t ${docker_repo} -f Dockerfile .
 .PHONY: docker-build
 
 docker-run:
@@ -70,6 +73,6 @@ docker-stop:
 .PHONY: docker-stop
 
 docker-build-push:
-	docker build -t sir-avdul.ddns.net:8555/test-3-grpc:latest -f Dockerfile .
-	docker push sir-avdul.ddns.net:8555/test-3-grpc:latest
+	docker build -t ${docker_repo} -f Dockerfile .
+	docker push ${docker_repo}
 .PHONY: docker-build-push
