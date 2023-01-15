@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package publisher;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package="github.com/fahmyabdul/gits-assignments/test-3/internal/proto";
+
+message Publisher {
+  int32 id = 1;
+  string name = 2;
+  string detail = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message PublisherCreateRequest {
+  Publisher request = 1;
+}
+
+message PublisherCreateResponse {
+  string status = 1;
+}
+
+message PublisherFetchByIdRequest {
+  int32 id = 1;
+}
+
+message PublisherFetchByIdResponse {
+  string status = 1;
+  Publisher data = 2;
+}
+
+message PublisherFetchByNameRequest {
+  string name = 1;
+}
+
+message PublisherFetchByNameResponse {
+  string status = 1;
+  repeated Publisher data = 2;
+}
+
+message PublisherFetchAllResponse {
+  string status = 1;
+  repeated Publisher data = 2;
+}
+
+message PublisherUpdateRequest {
+  int32 id = 1;
+  Publisher request = 2;
+}
+
+message PublisherUpdateResponse {
+  string status = 1;
+}
+
+message PublisherDeleteRequest {
+  int32 id = 1;
+}
+
+message PublisherDeleteResponse {
+  string status = 1;
+}
+
+service PublisherService {
+  rpc CreatePublisher(PublisherCreateRequest) returns (PublisherCreateResponse);
+  rpc FetchByIdPublisher (PublisherFetchByIdRequest) returns (PublisherFetchByIdResponse);
+  rpc FetchByNamePublisher (PublisherFetchByNameRequest) returns (PublisherFetchByNameResponse);
+  rpc FetchAllPublisher(google.protobuf.Empty) returns (PublisherFetchAllResponse);
+  rpc UpdatePublisher (PublisherUpdateRequest) returns (PublisherUpdateResponse);
+  rpc DeletePublisher (PublisherDeleteRequest) returns (PublisherDeleteResponse);
+}

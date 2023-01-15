@@ -1,0 +1,12 @@
+log/
+*.log
+*.log.gz
+bin/
+test.go
+tmp/
+vendor/
+.air.dev.toml
+.config.dev.toml
+*.out
+*.prof
+*.test

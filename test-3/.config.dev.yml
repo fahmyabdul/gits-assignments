@@ -1,0 +1,41 @@
+logger:
+  level: debug
+  file_log: true
+  console_log: true
+  log_as_json: true
+  max_size: 100
+  max_backups: 1
+  max_age: 1
+  daily_rotate: true
+  compress_log: true
+databases:
+  redis:
+    host: sir-avdul.ddns.net:6379
+    auth: redhat123#!
+    db: 0
+    max_idle: 80
+    max_active: 12000
+  postgre:
+    host: sir-avdul.ddns.net
+    port: 6432
+    user: etcetera
+    pass: etcetera123
+    db: etcetera
+    schema: public
+    max_pool: 100
+controller:
+  restapi:
+    port: '9100'
+    base_path: "/api/v1/test"
+    swagger:
+      title: "Test 3"
+      description: "Gits Assignments - Test 3 Swagger UI"
+      schemes: 
+        - "http"
+    cors:
+      origin: "*"
+      methods: "GET, POST, OPTIONS, PUT, DELETE"
+  grpc:
+    port: '11000'
+etc:
+  etc-service: http://localhost:8500/api/v1/etc

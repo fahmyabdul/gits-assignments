@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package author;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package="github.com/fahmyabdul/gits-assignments/test-3/internal/proto";
+
+message Author {
+  int32 id = 1;
+  string name = 2;
+  string detail = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message AuthorCreateRequest {
+  Author request = 1;
+}
+
+message AuthorCreateResponse {
+  string status = 1;
+}
+
+message AuthorFetchByIdRequest {
+  int32 id = 1;
+}
+
+message AuthorFetchByIdResponse {
+  string status = 1;
+  Author data = 2;
+}
+
+message AuthorFetchByNameRequest {
+  string name = 1;
+}
+
+message AuthorFetchByNameResponse {
+  string status = 1;
+  repeated Author data = 2;
+}
+
+message AuthorFetchAllResponse {
+  string status = 1;
+  repeated Author data = 2;
+}
+
+message AuthorUpdateRequest {
+  int32 id = 1;
+  Author request = 2;
+}
+
+message AuthorUpdateResponse {
+  string status = 1;
+}
+
+message AuthorDeleteRequest {
+  int32 id = 1;
+}
+
+message AuthorDeleteResponse {
+  string status = 1;
+}
+
+service AuthorService {
+  rpc CreateAuthor(AuthorCreateRequest) returns (AuthorCreateResponse);
+  rpc FetchByIdAuthor (AuthorFetchByIdRequest) returns (AuthorFetchByIdResponse);
+  rpc FetchByNameAuthor (AuthorFetchByNameRequest) returns (AuthorFetchByNameResponse);
+  rpc FetchAllAuthor(google.protobuf.Empty) returns (AuthorFetchAllResponse);
+  rpc UpdateAuthor (AuthorUpdateRequest) returns (AuthorUpdateResponse);
+  rpc DeleteAuthor (AuthorDeleteRequest) returns (AuthorDeleteResponse);
+}
